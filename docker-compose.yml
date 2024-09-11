@@ -1,0 +1,34 @@
+version: '1.29.2'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: firstsql
+    environment:
+      POSTGRES_USER: sobhanSQL
+      POSTGRES_PASSWORD: 146236
+      POSTGRES_DB: myfirstdatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  flask:
+    build: .
+    container_name: my_flask_app
+    depends_on:
+      - postgres
+    environment:
+      - APP_CONFIG_FILE=/app/.env
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+
+volumes:
+  pgdata:
+
+    return "Hello, World!"
+
+
+
